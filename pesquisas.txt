@@ -1,0 +1,50 @@
+Algumas coisas que não sei (pesquisar).
+Diferença entre:
+
+Long->É um tipo de dado primitivo de (64 bit)
+long->Seria a classe Wrepper(que encapsula valor de um objeto)
+
+com diversos Wrappers que adicionam funcionalidades a outras classes ou tipos primitivos, 
+um exemplo dele é o Integer, que é o Wrapper do tipo primitivo int. Que tipo de funcionalidade você 
+pode executar tendo apenas uma variável definida como “int”? Nenhuma, a não ser atribuir valores, 
+pois int é um tipo primitivo e não possuí métodos.
+
+
+classe Abstract->São as que não permitem realizar qualquer tipo de instancia
+São classes feitas especialmente para serem modelos para as suas classes derivadas, as classes derivadas deverão sobrescrever os metodos para realizar
+a implementação dos mesmos. As classes derivadas das classes abstratas são conhecidas como classes concretas.
+
+
+Serializable-> armazenar um objeto que se tem e disco ou banco para reutiliza-lo depois, torna-lo persistente
+
+
+
+
+
+@NotEmpty-> Em poucas palavras, isso significa que um campo (por exemplo, CharSequence , Collection , Map ou Array) restringido com @NotEmpty não deve ser nulo e seu tamanho / comprimento deve ser maior que zero .
+@NotBlank-> o método retorna true para valores nulos. Portanto, podemos pensar que o @NotBlank permite valores nulos, mas na verdade não.
+
+O método @NotNull class 'isValid () é chamado após a classe @NotBlank' isValid (), portanto, proibindo valores nulos.
+
+Simplificando, um campo String restrito a @NotBlank não deve ser nulo e o comprimento aparado deve ser maior que zero .
+
+@entity->Esta anotação é utilizada para informar que uma classe tambem é um entidade.A partir disso,
+a JPA estabelecerá a ligação entre a entidade e uma tabela de mesmo nome no banco de dados, onde os dados de objetos desse tipo poderão ser persistidos.
+
+@EqualsAndHashCode->  por padrão ele usará todos os campos não estáticos e não transientes.
+
+@AllArgsConstructor-> cria um construtor com todos os atributos
+@NotNull->  a restrição @NotNull não permitirá valores nulos para os campos restritos. Mesmo assim, os campos podem estar vazios.
+
+@Column(nullable = false)-> O @Column precisa ser especificado apenas quando uma característica não default precisa ser definida para a coluna em questão. Por exemplo, quando uma coluna deve ser única unique = true ou quando não pode aceitar valores nulos nullable = false.
+
+do ManyToOne
+(optional = false)-> é uma instrução de tempo de execução.
+(FetchType.EAGER)-> seria usado quando não faz sentido puxar um objeto do BD sem puxar um outro também.
+
+Mas, na prática, acho ruim. Você acaba naquele esquema puxa um fio de cabelo e vem uma peruca.Ou seja, evito ao máximo o FetchType.EAGER.
+
+(FetchType.LAZY)-> puxa apenas uma.
+
+De qualquer forma, você pode modificar suas @Enumerated(EnumType.STRING) porque elas estão vinculadas ao pedido, 
+mas não é possível alterar suas @Enumerated(EnumType.STRING) porque elas serão usadas como novas enumerações.

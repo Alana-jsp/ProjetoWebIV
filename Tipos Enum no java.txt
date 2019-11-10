@@ -1,0 +1,10 @@
+           
+ 	Tipos Enum no java
+
+Estrutura de dados que armazenam uma coleção de valores fixos predefinidos
+e imutáveis
+
+são usados para a criação de estruturas de dados organizados, podendo 
+agrupar valores que tenham o mesmo sentido para dentro dessa estrutura.
+
+os tipos enum podem ser usados a qualquer momento em que se precise representar um conjunto fixo de constantes.
