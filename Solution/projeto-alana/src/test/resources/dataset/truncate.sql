@@ -1,0 +1,2 @@
+TRUNCATE funcionario CASCADE;
+TRUNCATE cliente CASCADE;

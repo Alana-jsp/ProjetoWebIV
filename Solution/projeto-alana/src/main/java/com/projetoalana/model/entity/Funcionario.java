@@ -1,19 +1,16 @@
 package com.projetoalana.model.entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.time.OffsetDateTime;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
+import java.util.Set;
+import java.util.UUID;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -32,7 +29,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class Funcionario extends AbstractEntity implements Serializable, UserDetails{
+public class Funcionario extends AbstractEntity implements UserDetails{
 	
 	/**
 	 * 
@@ -59,6 +56,48 @@ public class Funcionario extends AbstractEntity implements Serializable, UserDet
 	@NotNull
 	@Enumerated(EnumType.ORDINAL)
 	private PerfilUsuarioEnum perfil;
+	
+	/**
+	 * Token para resetar o password
+	 */
+	private String passwordResetToken;
+
+	/**
+	 * Data que expira o token de resetar o password
+	 */
+	private OffsetDateTime passwordResetTokenExpiration;
+	
+	/**
+	 * Token para ativar a conta
+	 */
+	private String accountActivateToken;
+
+	/**
+	 * Data que expira o token de ativar a conta
+	 */
+	private OffsetDateTime accountActivateTokenExpiration;
+	
+	/**
+	 * 
+	 */
+	@Column(nullable = false)
+	private Boolean ativo;
+
+	@Override
+	@Transient
+	public Set<GrantedAuthority> getAuthorities()
+	{
+		final Set<GrantedAuthority> authorities = new HashSet<>();
+
+		if ( this.perfil == null )
+		{
+			return null;
+		}
+		
+		authorities.addAll( this.perfil.getAuthorities() );
+
+		return authorities;
+	}
 	
 
 	@Override
@@ -91,28 +130,29 @@ public class Funcionario extends AbstractEntity implements Serializable, UserDet
 		return false;
 	}
 
-	@Override
 	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return false;
+		return this.ativo;
 	}
-    
-    /*
-     * Metodos
-     */
-	@Override
-	@Transient
-	public Set<GrantedAuthority> getAuthorities()
+	
+	public void generatePasswordResetToken()
 	{
-		final Set<GrantedAuthority> authorities = new HashSet<>();
+		this.passwordResetToken = UUID.randomUUID().toString();
+		this.passwordResetTokenExpiration = OffsetDateTime.now().plusDays( 1 );
 
-		if ( this.perfil == null )
-		{
-			return null;
-		}
-		
-		authorities.addAll( this.perfil.getAuthorities() );
-
-		return authorities;
 	}
+	
+	public void generateAccountActivateToken()
+	{
+		this.accountActivateToken = UUID.randomUUID().toString();
+		this.accountActivateTokenExpiration = OffsetDateTime.now().plusDays( 1 );
+
+	}
+	
+	public void generatePassword()
+	{
+		this.senha = UUID.randomUUID().toString();
+
+	}
+
+	
 }

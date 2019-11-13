@@ -1,15 +1,19 @@
 package com.projetoalana.model.service;
 
+
 import java.util.List;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import com.projetoalana.model.entity.Cliente;
 import com.projetoalana.model.repository.ClienteRepository;
+
 
 @Service
 @Transactional
@@ -55,7 +59,15 @@ public class ClienteService {
 	 * Serviço para excluir um cliente
 	 * A partir do seu codigo
 	 */
-	public void removecliente(long codigo) {
+	public void removeCliente(long codigo) {
 		this.clienteRepository.deleteById(codigo);
 	}
+	/*
+	 * Serviço que lista os clientes por filtro
+	 */
+	
+	public Page<Cliente> listarClientesPorFiltros(String nome, PageRequest pageable){
+		return this.clienteRepository.findByFilters(nome,pageable);
+	}
+	
 }
