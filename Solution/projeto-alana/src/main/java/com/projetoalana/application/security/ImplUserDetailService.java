@@ -20,9 +20,9 @@ public class ImplUserDetailService implements UserDetailsService {
 	@Transactional(readOnly = true)
 	@Override
 	public UserDetails loadUserByUsername(String email)  {
-		Funcionario usuario = this.funcionarioRepository.findByEmailIgnoreCase(email);
-		Assert.notNull(usuario, "Nenhum usuário encontrado com o e-mail especificado.");
-		return usuario;
+		Funcionario funcionario = this.funcionarioRepository.findByEmailIgnoreCase(email);
+		Assert.notNull(funcionario, "Nenhum usuário encontrado com o e-mail especificado.");
+		return funcionario;
 	}	
 
 }

@@ -23,12 +23,4 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario,Long>{
 	
 	Optional<Funcionario> findByAccountActivateToken( String token );
 	
-	@Query("FROM Funcionario funcionario"
-			+ "WHERE"
-			+      "(funcionario.nome LIKE '%' || nome || '%' OR :nome IS NULL)"
-			+ "AND (funcionario.email LIKE '%' || email || '%' OR :email IS NULL)"
-			+ "AND (funcionario.senha LIKE '%' || senha || '%' OR :senha IS NULL)")
-		
-	public Page<Funcionario> findByFilters(@Param("nome") String nome, @Param("email") String email,
-			                               @Param("senha") String senha, Pageable pageable);
 }

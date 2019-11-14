@@ -3,7 +3,6 @@ package com.projetoalana.model.entity;
 import java.io.Serializable;
 import java.time.OffsetDateTime;
 import java.util.HashSet;
-
 import java.util.Set;
 import java.util.UUID;
 
@@ -19,6 +18,8 @@ import javax.validation.constraints.Size;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -29,7 +30,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class Funcionario extends AbstractEntity implements UserDetails{
+public class Funcionario extends AbstractEntity implements Serializable, UserDetails{
 	
 	/**
 	 * 
@@ -48,6 +49,7 @@ public class Funcionario extends AbstractEntity implements UserDetails{
 	@NotBlank
 	private String email;
     
+
 	@Column(nullable = false, length = 100)
 	@Size(max = 100)
 	@NotBlank
@@ -83,6 +85,8 @@ public class Funcionario extends AbstractEntity implements UserDetails{
 	@Column(nullable = false)
 	private Boolean ativo;
 
+	
+	
 	@Override
 	@Transient
 	public Set<GrantedAuthority> getAuthorities()
@@ -115,25 +119,21 @@ public class Funcionario extends AbstractEntity implements UserDetails{
 	@Override
 	public boolean isAccountNonExpired() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
-	public boolean isEnabled() {
-		return this.ativo;
-	}
-	
 	public void generatePasswordResetToken()
 	{
 		this.passwordResetToken = UUID.randomUUID().toString();
@@ -152,6 +152,13 @@ public class Funcionario extends AbstractEntity implements UserDetails{
 	{
 		this.senha = UUID.randomUUID().toString();
 
+	}
+
+
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return this.ativo;
 	}
 
 	

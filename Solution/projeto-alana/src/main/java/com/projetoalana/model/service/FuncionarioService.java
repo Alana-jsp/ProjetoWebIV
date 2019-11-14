@@ -40,30 +40,6 @@ public class FuncionarioService {
 
 	
 	/*
-	 * Servico para realizar um novo cadastro de funcionario
-	 * 
-	 */
-	public Funcionario cadastrarFuncionario(Funcionario funcionario) {
-		return this.funcionarioRepository.save(funcionario);
-	}
-	
-	/*
-	 * Servico para atualizar um funcionario
-	 * 
-	 */
-	public Funcionario atualizarFuncionario(Funcionario funcionario) {
-		return this.funcionarioRepository.save(funcionario);
-	}
-	
-	/*
-	 * Serviço de listagem de Funcionarios
-	 * 
-	 */
-	public List<Funcionario> listaFuncionario(){
-		return this.funcionarioRepository.findAll();
-	}
-	
-	/*
 	 * Serviço de detalhar um funcionario
 	 * Apartir do seu codigo
 	 * caso não seja encontrado ele retorna uma mensagem de erro
@@ -87,11 +63,11 @@ public class FuncionarioService {
 	/*
 	 * Serviço que lista os funcionario por filtro
 	 */
-	public Page<Funcionario> listarFuncionarioPorFiltros(String nome, String email,String senha,PageRequest pageable){
-		return this.funcionarioRepository.findByFilters(nome, email, senha, pageable);
-	}
+//	public Page<Funcionario> listarFuncionarioPorFiltros(String nome, String email,String senha, PageRequest pageable){
+//		return this.funcionarioRepository.findByFilters(nome, email, senha, pageable);
+//	}
 	
-	public Funcionario cadastrarfuncionario(Funcionario funcionario)
+	public Funcionario cadastrarFuncionario(Funcionario funcionario)
 	{
 		//seta o funcionario como inativo
 		funcionario.setAtivo( false );

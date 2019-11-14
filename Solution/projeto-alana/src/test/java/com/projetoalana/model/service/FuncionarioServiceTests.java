@@ -33,18 +33,18 @@ public class FuncionarioServiceTests extends AbstractIntegrationTests{
 	/*
 	 * ------------Teste Para Cadastro de Funcionários----------------------
 	 */
-	@WithUserDetails("allanahwayoung@gmail.com")
+	
 	@Test
 	@Sql({"/dataset/truncate.sql",
-		  "/dataset/funcionario.sql"})
-	public void cadastrarfuncionarioMustPass() {
-		Funcionario funcionario = new Funcionario();
+	     "/dataset/funcionario.sql"})
+	public void cadastrarFuncionarioMustPass() {
+	    Funcionario funcionario = new Funcionario();
 		
-		funcionario.setNome("Alana");
+		funcionario.setNome("Allana");
 		funcionario.setEmail("allanahwayoung@gmail.com");
-		funcionario.setSenha("1234");
-		funcionario.setPerfil(PerfilUsuarioEnum.VENDEDOR);
-		this.funcionarioService.cadastrarfuncionario(funcionario);
+		//funcionario.setSenha("1234");
+		funcionario.setPerfil(PerfilUsuarioEnum.ADMINISTRADOR);
+		this.funcionarioService.cadastrarFuncionario(funcionario);
 		Assert.assertNotNull(funcionario);
 		Assert.assertNotNull(funcionario.getCodigo());
 		
