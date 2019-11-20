@@ -1,6 +1,8 @@
 package com.projetoalana.model.service;
 
 
+import java.util.List;
+
 import javax.validation.ConstraintViolationException;
 
 import org.junit.Assert;
@@ -22,7 +24,7 @@ public class FuncionarioServiceTests extends AbstractIntegrationTests{
 	//MustFail -> O teste é feito para falhar
 	
 	@Autowired
-	private PasswordEncoder passwordEncode;
+	private PasswordEncoder passwordEncoder;
 	
 	@Autowired
 	private FuncionarioService funcionarioService;
@@ -35,13 +37,14 @@ public class FuncionarioServiceTests extends AbstractIntegrationTests{
 	 */
 	
 	@Test
+	@WithUserDetails("allanahwayoung@gmail.com")
 	@Sql({"/dataset/truncate.sql",
 	     "/dataset/funcionario.sql"})
 	public void cadastrarFuncionarioMustPass() {
 	    Funcionario funcionario = new Funcionario();
 		
 		funcionario.setNome("Allana");
-		funcionario.setEmail("allanahwayoung@gmail.com");
+		funcionario.setEmail("allanahwayong@gmail.com");
 		//funcionario.setSenha("1234");
 		funcionario.setPerfil(PerfilUsuarioEnum.ADMINISTRADOR);
 		this.funcionarioService.cadastrarFuncionario(funcionario);
@@ -99,12 +102,24 @@ public class FuncionarioServiceTests extends AbstractIntegrationTests{
 	 */
 	@Test
 	@Sql({"/dataset/truncate.sql",
-		  "dataset/funcionario.sql"})
-	public void ativarFuncioanrioMustPass() {
-		this.funcionarioService.ativarFuncionario("1234", "1234", "");
+		  "/dataset/funcionario.sql"})
+	public void ativarFuncionarioMustPass() {
+		this.funcionarioService.ativarFuncionario("1234", "1234", "f786c907-032e-451b-ac93-8508dec75a3d");
 		
 		Funcionario funcionarioAtivo = this.funcionarioRepository.findByEmailIgnoreCase("allanahwayoung@gmail.com");
 		Assert.assertEquals(true, funcionarioAtivo.getAtivo());
+	}
+	
+	/*
+	 * -------------------------Listagem de Funcionario--------------------------
+	 * 
+	 */
+	@Test
+	@Sql({"/dataset/truncate.sql",
+		   "/dataset/funcionario.sql"})
+	public void listarFuncionarioMustPass() {
+		List<Funcionario> funcionarios = this.funcionarioService.listaFuncionario();
+		Assert.assertEquals(funcionarios.size(), 1001);
 	}
 	
 	/*
@@ -121,6 +136,32 @@ public class FuncionarioServiceTests extends AbstractIntegrationTests{
 		Assert.assertNotNull(funcionario.getPasswordResetToken());
 		Assert.assertNotNull(funcionario.getAccountActivateTokenExpiration());
 	}
+	
+	/*
+	 * ---------------------------- Redefinir senha do Funcionario----------------------
+	 */
+	@Test
+	@Sql({"/dataset/truncate.sql",
+		  "/dataset/funcionario.sql"})
+	public void redefinirSenhaMustPass() {
+		
+		this.funcionarioService.redefinirSenha("12345", "12345", "f786c907-032e-451b-ac93-8508dec75a3d");
+		
+	}
+	
+	/*
+	 * -----------------------Pegar Funcionario Autenticado
+	 */
+	@Test
+	@Sql({"/dataset/truncate.sql",
+		  "/dataset/funcionario.sql"})
+	public void pegarFuncionarioAutenticadoMustPass() {
+		//Funcionario funcionario = this.funcionarioService.getAuthenticatedUser();
+		Funcionario funcionario = this.funcionarioRepository.findById(1001L).orElse(null);
+		Assert.assertNotNull(funcionario);
+		Assert.assertNotNull(funcionario.getCodigo());
+	}
+	
 	
 	
 }

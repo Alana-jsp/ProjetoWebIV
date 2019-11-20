@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import com.projetoalana.model.entity.Cliente;
 import com.projetoalana.model.entity.Funcionario;
 import com.projetoalana.model.repository.FuncionarioRepository;
 import com.projetoalana.application.security.*;
@@ -44,7 +45,7 @@ public class FuncionarioService {
 	 * Apartir do seu codigo
 	 * caso não seja encontrado ele retorna uma mensagem de erro
 	 */
-	public Funcionario detalhaFuncioanrio(long codigo) {
+	public Funcionario detalhaFuncionario(long codigo) {
 		Funcionario funcionario = this.funcionarioRepository.findById(codigo).orElse(null);
 		Assert.notNull(funcionario, "Codigo"+codigo+"não encontrado");
 	
@@ -63,9 +64,17 @@ public class FuncionarioService {
 	/*
 	 * Serviço que lista os funcionario por filtro
 	 */
-//	public Page<Funcionario> listarFuncionarioPorFiltros(String nome, String email,String senha, PageRequest pageable){
-//		return this.funcionarioRepository.findByFilters(nome, email, senha, pageable);
-//	}
+	public Page<Funcionario> listarFuncionarioPorFiltros(String nome, String email,String senha, PageRequest pageable){
+		return this.funcionarioRepository.findByFilters(nome, email, senha, pageable);
+	}
+	
+	/*
+	 * Serviço para listar um Funcionario
+	 */
+	public List<Funcionario> listaFuncionario(){
+		return this.funcionarioRepository.findAll();
+	}
+	
 	
 	public Funcionario cadastrarFuncionario(Funcionario funcionario)
 	{

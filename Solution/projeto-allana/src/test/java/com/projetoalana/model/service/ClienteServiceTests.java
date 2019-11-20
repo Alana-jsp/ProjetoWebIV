@@ -81,7 +81,7 @@ public class ClienteServiceTests extends AbstractIntegrationTests {
 		  "/dataset/cliente.sql"})
 	public void listarClientesMustPass() {
 		List<Cliente> clientes = this.clienteService.listaCliente();
-		
+		Assert.assertEquals(clientes.size(), 4);
 	}
 	
 	/*

@@ -45,6 +45,9 @@ public class Venda extends AbstractEntity implements Serializable{
 	private Double valorTotal;
 	
 	@NotNull
+	private Integer quantidade;
+	
+	@NotNull
 	@Enumerated(EnumType.ORDINAL)
 	private PagamentoEnum formaPagamento;
 	

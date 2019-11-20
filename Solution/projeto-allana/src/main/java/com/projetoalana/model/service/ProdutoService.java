@@ -5,6 +5,8 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -64,5 +66,13 @@ public class ProdutoService {
 	 */
 	public void removeProduto(long codigo) {
 		this.produtoRepository.deleteById(codigo);
+	}
+	
+	/*
+	 * Serviço que lista os Produtos por filtro
+	 */
+	
+	public Page<Produto> listarProdutoPorFiltros(String nome,Double valor, String descricao, PageRequest pageable){
+		return this.produtoRepository.findByFilters(nome,valor,descricao,pageable);
 	}
 }
