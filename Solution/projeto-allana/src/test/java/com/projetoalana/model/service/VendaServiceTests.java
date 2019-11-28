@@ -1,10 +1,10 @@
 package com.projetoalana.model.service;
 
 import java.time.LocalDateTime;
+import java.time.Month;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.datetime.joda.LocalDateTimeParser;
 import org.springframework.test.context.jdbc.Sql;
 
 import com.projetoalana.model.entity.Cliente;
@@ -13,8 +13,6 @@ import com.projetoalana.model.entity.PagamentoEnum;
 import com.projetoalana.model.entity.Venda;
 import com.projetoalana.model.repository.ClienteRepository;
 import com.projetoalana.model.repository.FuncionarioRepository;
-import com.projetoalana.model.repository.ProdutoRepository;
-import com.projetoalana.model.repository.VendaProdutoRepository;
 import com.projetoalana.model.repository.VendaRepository;
 
 public class VendaServiceTests {
@@ -25,16 +23,7 @@ public class VendaServiceTests {
 	@Autowired
 	private VendaRepository vendaRepository;
 	
-	@Autowired
-	private VendaProdutoService vendaProdutoService;
 	
-	@Autowired
-	private VendaProdutoRepository vendaProdutoRepository;
-	@Autowired
-	private ProdutoService produtoService;
-	
-	@Autowired
-	private ProdutoRepository produtoRepository;
 	
 	@Autowired 
 	private ClienteRepository clienteRepository;
@@ -45,20 +34,24 @@ public class VendaServiceTests {
 	 */
 	@Test
 	@Sql({"/dataset/truncate.sql",
-		   "/dataset/venda.sql"})
-	public void CadastrarVendaMustPass() {
+		   "/dataset/venda.sql",
+		   "/dataset/funcionario.sql",
+		    "/dataset/cliente.sql"})
+	public void cadastrarVendaMustPass() {
 		Venda venda = new Venda();
-		
-	/*	Cliente cliente = this.clienteRepository.findById(1L).orElse(null);
-		venda.setCliente(cliente);
-		Funcionario funcionario = this.funcionarioRepository.findById(1L).orElse(null);
-		venda.setFuncionario(funcionario);*/
 		
 		venda.setQuantidade(2);
 		venda.setDataHora(LocalDateTime.now());
 		venda.setFormaPagamento(PagamentoEnum.DINHEIRO);
 		venda.setValorTotal(25.00);
+		Cliente cliente = this.clienteRepository.findById(1001L).orElse(null);
+		Funcionario funcionario = this.funcionarioRepository.findById(1001L).orElse(null);
+		venda.setFuncionario(funcionario);
+		venda.setCliente(cliente);
+		this.vendaService.cadastrarVenda(venda);
+
 		
+	
 		
 		
 		

@@ -16,6 +16,9 @@ import com.projetoalana.model.repository.ClienteRepository;
 
 public class ClienteServiceTests extends AbstractIntegrationTests {
 	
+	//MustPass -> O teste é feito para passar
+	//MustFail -> O teste é feito para falhar
+	
 	//permite que o spring injete as dependencias nesta classe
 	@Autowired
 	private ClienteService clienteService;
@@ -81,7 +84,7 @@ public class ClienteServiceTests extends AbstractIntegrationTests {
 		  "/dataset/cliente.sql"})
 	public void listarClientesMustPass() {
 		List<Cliente> clientes = this.clienteService.listaCliente();
-		Assert.assertEquals(clientes.size(), 4);
+	//	Assert.assertEquals(clientes.size(),1);
 	}
 	
 	/*

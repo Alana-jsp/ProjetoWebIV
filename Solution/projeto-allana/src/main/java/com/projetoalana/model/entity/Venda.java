@@ -29,7 +29,7 @@ public class Venda extends AbstractEntity implements Serializable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -409603681565229055L;
+	private static final long serialVersionUID = 1L;
 
 
 	/*
@@ -41,7 +41,7 @@ public class Venda extends AbstractEntity implements Serializable{
 	@NotNull
 	private LocalDateTime dataHora;
 	
-	@NotEmpty
+	@NotNull
 	private Double valorTotal;
 	
 	@NotNull

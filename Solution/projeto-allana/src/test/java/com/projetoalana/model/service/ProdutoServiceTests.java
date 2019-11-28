@@ -16,6 +16,10 @@ import com.projetoalana.model.repository.ProdutoRepository;
 
 public class ProdutoServiceTests extends AbstractIntegrationTests{
 	
+	//MustPass -> O teste é feito para passar
+	//MustFail -> O teste é feito para falhar
+		
+		//permite que o spring injete as dependencias nesta classe
 	@Autowired
 	private ProdutoService produtoService;
 	
@@ -117,6 +121,7 @@ public class ProdutoServiceTests extends AbstractIntegrationTests{
 		Assert.assertNotNull(produto);
 		Assert.assertNotNull(produto.getCodigo());
 	}
+	
 	@Test(expected = IllegalArgumentException.class)
 	@Sql({"/dataset/truncate.sql",
 		  "/dataset/produto.sql"})

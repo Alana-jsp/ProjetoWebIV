@@ -36,7 +36,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.csrf().disable();
 		http.headers().frameOptions().disable();
 
-		http.authorizeRequests()
+	/*	http.authorizeRequests()
 			.antMatchers("/" ).fullyAuthenticated()
 			.anyRequest()
 			.authenticated()
@@ -59,7 +59,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		.and()
 		.formLogin()
 		.defaultSuccessUrl("/index")
-		.and().httpBasic().disable();
+		.and().httpBasic().disable();*/
 		
 		http.cors().and().csrf().disable()
 		.authorizeRequests()
